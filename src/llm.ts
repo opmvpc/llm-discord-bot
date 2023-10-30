@@ -77,18 +77,6 @@ class Llm {
     this.persona = this.personas[index];
   }
 
-  async chat(messages: Collection<Snowflake, Message>): Promise<string> {
-    const history = await this.formatHistory(messages, "You");
-    const datetimeString = new Date().toLocaleString("fr-FR", {
-      timeZone: "Europe/Paris",
-    });
-
-    return this.stream([
-      new SystemMessage(prompts.chat.system(this.persona, datetimeString)),
-      ...history,
-    ]);
-  }
-
   async chatWithPersona(
     messages: Collection<Snowflake, Message>
   ): Promise<string> {
