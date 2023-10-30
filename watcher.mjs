@@ -15,6 +15,15 @@ function lancerScript() {
   });
 
   processus.stderr.on("data", (data) => {
+    // if data is a string and starts with "Received a non-JSON parseable chunk"
+    // do nothing
+    if (
+      typeof data === "string" &&
+      data.startsWith("Received a non-JSON parseable chunk")
+    ) {
+      return;
+    }
+
     console.error(`stderr: ${data}`);
   });
 

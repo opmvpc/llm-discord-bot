@@ -8,6 +8,7 @@ import {
 import { Message, Collection, Snowflake } from "discord.js";
 import { StringOutputParser } from "langchain/schema/output_parser";
 import prompts from "./prompts";
+import { Models } from "./models";
 
 class Llm {
   llm: ChatOllama;
@@ -18,7 +19,7 @@ class Llm {
     console.log("Llm");
     this.llm = new ChatOllama({
       baseUrl: "http://localhost:11434",
-      model: "openhermes2-mistral",
+      model: Models.Mistral,
     });
     this.persona = "";
     this.personas = [];
