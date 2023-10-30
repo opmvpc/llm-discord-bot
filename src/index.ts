@@ -5,11 +5,12 @@ import {
   IntentsBitField,
   EmbedBuilder,
   ActivityType,
-  PresenceManager,
-  Presence,
 } from "discord.js";
-import llm from "./llm";
+import llm from "./llm.js";
 import "dotenv/config";
+import { createStorage } from "unstorage";
+import fsDriver from "unstorage/drivers/fs";
+import { Persona } from "./Persona/Persona.js";
 
 const intents = new IntentsBitField();
 intents.add(
@@ -32,37 +33,7 @@ client.once(Events.ClientReady, async (c: Client) => {
   console.log(`Ready! Logged in as ${c.user?.tag}`);
   botName = c.user?.tag || "Bot";
   botId = c.user?.id || "0";
-  console.log("génération des personnalités");
-  await llm.generatePersonas();
-  console.log("personnalités générées");
-  console.log("Persona sélectionné :");
-  console.log(llm.persona);
-
-  // get persona name with regex (ex: "Name": "Clémentine Dupont")
-  const personaName = llm.persona.match(/"Name": "(.*)"/)?.[1] ?? "Unknown";
-  const country = llm.persona.match(/"Country": "(.*)"/)?.[1] ?? "Unknown";
-  const age = llm.persona.match(/"Age": (.*),/)?.[1] ?? "Unknown";
-  const gender = llm.persona.match(/"Gender": "(.*)"/)?.[1] ?? "Unknown";
-
-  client.user
-    ?.setUsername(personaName)
-    .then((user) =>
-      console.log(`Mon nouveau nom d'utilisateur est ${user.username}`)
-    )
-    .catch(console.error);
-
-  client.user?.setActivity({
-    name: `${personaName}`,
-    type: ActivityType.Playing,
-    state: `Country : ${country} | Age : ${age} | Gender : ${gender}`,
-  });
-
-  // client.user
-  //   ?.setAvatar(
-  //     "https://cours.tsix.be/storage/images/courses/poo-et-framework-copie-1/KPNt0furvtRETF9j7GHDfHkUQv66JqVVISIoy6lX.png"
-  //   )
-  //   .then((user) => console.log(`Avatar changé pour ${user.username}`))
-  //   .catch(console.error);
+  await switchPersona();
 });
 
 client.on(Events.MessageCreate, async (message: Message) => {
@@ -70,22 +41,20 @@ client.on(Events.MessageCreate, async (message: Message) => {
     return;
   }
 
-  if (llm.persona === "") {
+  if (llm.persona === undefined) {
     message.reply("Je ne suis pas encore prêt.e !");
     return;
   }
 
   if (message.content === "!hello") {
-    const embed = new EmbedBuilder()
-      .setColor("#0099ff")
-      .setTitle("Bot connecté")
-      .setDescription(`Je suis prêt ! Connecté en tant que ${botName}`)
-      .addFields(
-        { name: "Model", value: llm.llm.model },
-        { name: "Personnalité", value: llm.persona }
-      );
+    await sendPersonaEmbed(message);
+    return;
+  }
 
-    message.channel.send({ embeds: [embed] });
+  if (message.content === "!switch") {
+    //switch persona
+    await switchPersona();
+    await sendPersonaEmbed(message);
     return;
   }
 
@@ -116,12 +85,81 @@ client.on(Events.MessageCreate, async (message: Message) => {
   }
 });
 
-let token: string;
+const main = async () => {
+  const storage = createStorage({ driver: fsDriver({ base: "./data" }) });
 
-if (process.env.NODE_ENV === "production") {
-  token = process.env.DISCORD_SECRET_PROD || "";
-} else {
-  token = process.env.DISCORD_SECRET_DEV || "";
-}
+  let json = (await storage.getItem("personas.json")) as Persona[];
+  if (json === null) {
+    throw new Error("No personas found, use `npm run generate` first");
+  }
 
-client.login(token);
+  llm.personas = json;
+
+  let token: string;
+
+  if (process.env.NODE_ENV === "production") {
+    token = process.env.DISCORD_SECRET_PROD || "";
+  } else {
+    token = process.env.DISCORD_SECRET_DEV || "";
+  }
+
+  client.login(token);
+};
+
+const switchPersona = async () => {
+  console.log("Changement de personnalité");
+  await llm.getRandomPersona();
+  const persona = llm.persona as Persona;
+  console.log(`Persona sélectionné : ${persona.name}`);
+
+  try {
+    await client.user?.setUsername(persona.name);
+  } catch (error: any) {
+    console.log("Error setting username");
+    // console.error(error.message);
+  }
+
+  client.user?.setActivity({
+    name: `${persona.name}`,
+    type: ActivityType.Playing,
+    state: `Country : ${persona.country} | Age : ${persona.age} | Gender : ${persona.gender}`,
+  });
+
+  try {
+    await client.user?.setAvatar(
+      persona.imgUrl ??
+        "https://cdn.discordapp.com/app-icons/1168230047870636173/febd01a5ad27aaaaa4fd1b715caf018c.png?size=256"
+    );
+  } catch (error: any) {
+    console.log("Error setting avatar");
+    // console.error(error.message);
+  }
+};
+
+const sendPersonaEmbed = async (message: Message) => {
+  const embed = new EmbedBuilder()
+    .setColor("#0099ff")
+    .setTitle("Bot connecté")
+    .setDescription(`Je suis prêt ! Connecté en tant que ${botName}`)
+    .addFields(
+      { name: "Model", value: llm.llm.model },
+      {
+        name: "Personnalité",
+        value: `
+        Nom : ${llm.persona.name}
+        Age : ${llm.persona.age}
+        Genre : ${llm.persona.gender}
+        Pays : ${llm.persona.country}
+        `,
+      }
+    )
+    .setColor("#0099ff")
+    .setImage(
+      llm.persona.imgUrl ??
+        "https://cdn.discordapp.com/app-icons/1168230047870636173/febd01a5ad27aaaaa4fd1b715caf018c.png?size=256"
+    );
+
+  message.channel.send({ embeds: [embed] });
+};
+
+await main();

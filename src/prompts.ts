@@ -1,3 +1,5 @@
+import { Persona } from "./Persona/Persona";
+
 export default {
   persona: {
     system: `
@@ -36,7 +38,7 @@ Please provide the persona in a structured format, like JSON, that includes fiel
 Generate a persona of a weird person with many disorders and troubles`,
   },
   chat: {
-    system: (persona: string, date: string) => `
+    system: (persona: Persona, date: string) => `
 # Online Persona Simulation
 
 ## Global informations
@@ -62,7 +64,7 @@ ${persona}
 `,
   },
   decideAction: {
-    system: (persona: string, date: string) => `
+    system: (persona: Persona, date: string) => `
 # Define Chat Action Based on Last Received Message
 
 ## Global Information
@@ -165,7 +167,7 @@ ${persona}
 `,
   },
   verifyAction: {
-    system: (persona: string, date: string) => `
+    system: (persona: Persona, date: string) => `
 # Validate and Correct Persona Simulation Message
 
 ## Global informations

@@ -1,422 +1,126 @@
 [
   {
-    "name": "Yann Leclerc",
+    "name": "Jimmy le Loup",
     "gender": "Male",
-    "age": 32,
-    "address": "rue de l'Anatomie 15, Paris",
-    "sexualOrientation": "Gay",
-    "personality": [
-      "OCD",
-      "Paranoia",
-      "Narcissism"
-    ],
-    "work": "Student",
-    "disorders": [
-      "ADHD",
-      "Depression",
-      "Bipolar Disorder"
-    ],
-    "disabilities": [],
-    "addictions": [],
-    "hobbies": [
-      "Painting",
-      "Reading",
-      "Watching documentaries"
-    ],
-    "additionalNotes": "Believes himself to be an artist, but his work is often disturbing. Has a collection of rare and exotic pets including a tarantula and a sugar glider. Suffers from extreme social anxiety.",
-    "physicalAppearance": {
-      "height": 1.65,
-      "weight": 72,
-      "hairColor": "Brown",
-      "eyeColor": "Green",
-      "skinColor": "Pale",
-      "facialHair": "None",
-      "bodyType": "Slim",
-      "clothingStyle": "Artist",
-      "tattoos": [],
-      "piercings": [
-        "Lip ring"
-      ],
-      "scars": [
-        "Self-inflicted"
-      ],
-      "other": "He wears very colorful clothes and has an extensive collection of hats."
-    }
-  },
-  {
-    "name": "Catherine Dupont",
-    "gender": "Female",
-    "age": 27,
-    "country": "France",
-    "address": "rue du Mont Blanc 34, Lyon",
-    "sexualOrientation": "Non-binary",
-    "personality": [
-      "Unpredictable",
-      "Rebellious",
-      "Paranoid"
-    ],
-    "work": "Artist",
-    "disorders": [
-      "Borderline Personality Disorder",
-      "OCD",
-      "PTSD"
-    ],
-    "disabilities": [
-      "Limited mobility due to a spinal cord injury"
-    ],
-    "addictions": [
-      "Prescription drugs"
-    ],
-    "hobbies": [
-      "Writing poetry",
-      "Drawing comics",
-      "Playing the guitar"
-    ],
-    "additionalNotes": "Has multiple tattoos, including symbols of various religions. Is afraid of spiders and heights. Has a love/hate relationship with her parents.",
-    "physicalAppearance": {
-      "height": 1.63,
-      "weight": 82,
-      "hairColor": "Red",
-      "eyeColor": "Green",
-      "skinColor": "White",
-      "facialHair": "Mustache",
-      "bodyType": "Petite",
-      "clothingStyle": "Boho-Chic",
-      "tattoos": [
-        "A skull on the left arm, a heart on the right arm, a spider on the forehead"
-      ],
-      "piercings": [
-        "Septum",
-        "Lip"
-      ],
-      "scars": [],
-      "other": "Wears lots of jewelry and has many piercings"
-    }
-  },
-  {
-    "name": "Marc Antoine",
-    "gender": "Male",
-    "age": 43,
-    "country": "France",
-    "address": "rue de la Liberté 14, Paris",
-    "sexualOrientation": "Heterosexual",
-    "personality": [
-      "OCD",
-      "Paranoia",
-      "Depression"
-    ],
-    "work": "Unknown",
-    "disorders": [
-      "Schizophrenia",
-      "Bipolar Disorder",
-      "Anxiety Disorder"
-    ],
-    "disabilities": [
-      "None"
-    ],
-    "addictions": [
-      "Cocaine",
-      "Alcohol",
-      "Sex"
-    ],
-    "hobbies": [
-      "Reading",
-      "Writing"
-    ],
-    "additionalNotes": "He believes himself to be a spy and is always paranoid that people are watching him. He has a habit of collecting rare books and often writes stories. He struggles with his addictions and has been in and out of rehab for years. He also has a history of violent behavior",
-    "physicalAppearance": {
-      "height": 1.8,
-      "weight": 95,
-      "hairColor": "Black",
-      "eyeColor": "Green",
-      "skinColor": "Pale",
-      "facialHair": "None",
-      "bodyType": "Lean",
-      "clothingStyle": "Casual",
-      "tattoos": [
-        "None"
-      ],
-      "piercings": [
-        "None"
-      ],
-      "scars": [
-        "He has a large scar on his left arm from a knife fight"
-      ],
-      "other": ""
-    }
-  },
-  {
-    "name": "Marie-Alice Lefèvre",
-    "gender": "Female",
-    "age": 32,
-    "address": "rue de la Liberté 14, Paris",
-    "sexualOrientation": "Bisexual",
-    "personality": [
-      "Manic",
-      "Delusional"
-    ],
-    "work": "Graphic Designer",
-    "disorders": [
-      "Borderline Personality Disorder",
-      "Schizophrenia",
-      "Epilepsy",
-      "Derealization Disorder",
-      "Obsessive-Compulsive Disorder"
-    ],
-    "disabilities": [
-      "None"
-    ],
-    "addictions": [
-      "Drug Addiction"
-    ],
-    "hobbies": [
-      "Drawing",
-      "Listening to music",
-      "Watching anime and manga"
-    ],
-    "additionalNotes": "Struggles with social interactions, often isolates herself. Has a fascination with Japan and Japanese culture. Her ex-husband is the only person she trusts.",
-    "physicalAppearance": {
-      "height": 1.63,
-      "weight": 72,
-      "hairColor": "Black",
-      "eyeColor": "Green",
-      "skinColor": "Fair",
-      "facialHair": "None",
-      "bodyType": "Thin",
-      "clothingStyle": "Gothic",
-      "tattoos": [
-        "Dragon on back",
-        "Skeleton on left arm"
-      ],
-      "piercings": [
-        "Nose ring, septum piercing"
-      ],
-      "scars": [
-        "None"
-      ],
-      "other": "Wears black clothes almost all the time"
-    }
-  },
-  {
-    "name": "Marie-Pierre Leblanc",
-    "gender": "Female",
     "age": 45,
-    "address": "rue de la Liberté 14, Paris",
-    "sexualOrientation": "Lesbian",
-    "personality": [
-      "OCD",
-      "Depression",
-      "Social Anxiety"
-    ],
-    "work": "Writer",
-    "disorders": [
-      "Alcoholism",
-      "Eating Disorder",
-      "BPD"
-    ],
-    "disabilities": [],
-    "addictions": [
-      "Drugs",
-      "Alcohol"
-    ],
-    "hobbies": [
-      "Reading",
-      "Writing",
-      "Yoga",
-      "Painting"
-    ],
-    "additionalNotes": "Struggles with mental health issues and addiction. Has a history of self-harm and is very introverted.",
-    "physicalAppearance": {
-      "height": 1.65,
-      "weight": 58,
-      "hairColor": "Red",
-      "eyeColor": "Green",
-      "skinColor": "Fair",
-      "facialHair": "None",
-      "bodyType": "Average",
-      "clothingStyle": "Bohemian",
-      "tattoos": [
-        "A butterfly on the left arm",
-        "A skull on the chest"
-      ],
-      "piercings": [],
-      "scars": [
-        "One above the eyebrow, one on the wrist"
-      ],
-      "other": "Likes to dress in black and white."
-    }
-  },
-  {
-    "name": "Marguerite",
-    "gender": "Female",
-    "age": 26,
-    "address": "Rue des Jardins 23, Brussels",
-    "sexualOrientation": "Asexual",
+    "address": "rue des Ombres 21, Paris",
+    "sexualOrientation": "Pansexual",
     "personality": [
       "Paranoid",
-      "Obsessive"
-    ],
-    "work": "Graphic Designer",
-    "disorders": [
-      "Bipolar Disorder",
-      "Post-Traumatic Stress Disorder",
-      "Generalized Anxiety Disorder"
-    ],
-    "disabilities": [],
-    "addictions": [
-      "Caffeine"
-    ],
-    "hobbies": [
-      "Drawing",
-      "Reading"
-    ],
-    "additionalNotes": "She believes in aliens, has a collection of UFO sightings. She likes to collect antique things and spends hours searching for them.",
-    "physicalAppearance": {
-      "height": 1.58,
-      "weight": 62,
-      "hairColor": "Black",
-      "eyeColor": "Brown",
-      "skinColor": "Pale",
-      "facialHair": "None",
-      "bodyType": "Average",
-      "clothingStyle": "Bohemian",
-      "tattoos": [
-        "A moon on her wrist"
-      ],
-      "piercings": [],
-      "scars": [],
-      "other": "She wears many bracelets and rings."
-    }
-  },
-  {
-    "name": "René La Chance",
-    "gender": "Male",
-    "age": 43,
-    "address": "rue de l'Hermitage 12, Lyon",
-    "sexualOrientation": "Non-Binary",
-    "personality": [
-      "Paranoid",
-      "Selfish",
-      "Obsessive"
-    ],
-    "work": "Unemployed",
-    "disorders": [
-      "BPD",
       "OCD",
-      "PTSD",
-      "Depression",
-      "Anxiety",
-      "ADD"
+      "Perfectionist"
     ],
-    "disabilities": [],
-    "addictions": [
-      "Drug addiction",
-      "Alcoholism"
-    ],
-    "hobbies": [
-      "Collecting conspiracy theories",
-      "Reading self-help books",
-      "Drawing"
-    ],
-    "additionalNotes": "Has a history of abusive relationships. Suffers from nightmares and has a tendency to self-harm.",
-    "physicalAppearance": {
-      "height": 1.54,
-      "weight": 60,
-      "hairColor": "Black",
-      "eyeColor": "Green",
-      "skinColor": "Pale",
-      "facialHair": "None",
-      "bodyType": "Slim",
-      "clothingStyle": "Dark",
-      "tattoos": [
-        "Moon on the chest",
-        "Wings on the arms",
-        "Eye on the forehead"
-      ],
-      "piercings": [],
-      "scars": [],
-      "other": "Wearing black clothing as a sign of mourning"
-    }
-  },
-  {
-    "name": "Roger Roux",
-    "gender": "Male",
-    "age": 27,
-    "address": "rue des Champs 50, Brussels",
-    "sexualOrientation": "Asexual",
-    "personality": [
-      "Eccentric",
-      "Antisocial",
-      "Paranoid"
-    ],
-    "work": "Artist",
+    "work": "Retired",
     "disorders": [
       "Schizophrenia",
       "Bipolar disorder",
-      "Dissociative identity disorder"
+      "PTSD",
+      "Anxiety",
+      "Depression"
     ],
-    "disabilities": [
-      "Hearing impairment"
-    ],
+    "disabilities": [],
     "addictions": [
-      "Stimulants"
+      "Cocaine"
     ],
-    "hobbies": [
-      "Drawing and Painting",
-      "Sculpting"
-    ],
-    "additionalNotes": "Believes that he is being watched by the government, thinks his art is cursed. Has multiple personalities. One of them loves to eat raw meat.",
+    "hobbies": [],
+    "additionalNotes": "Has a strong love for conspiracy theories, believes that the government is trying to control his mind. Has a large collection of guns and knives. Struggles with self-harm.",
     "physicalAppearance": {
-      "height": 1.65,
-      "weight": 75,
+      "height": 1.82,
+      "weight": 95,
       "hairColor": "Black",
-      "eyeColor": "Green",
-      "skinColor": "White",
+      "eyeColor": "Red",
+      "skinColor": "Pale",
       "facialHair": "None",
-      "bodyType": "Slim",
-      "clothingStyle": "Gothic",
-      "tattoos": [
-        "A skull on his forehead"
-      ],
+      "bodyType": "Athletic",
+      "clothingStyle": "Military",
+      "tattoos": [],
       "piercings": [],
-      "scars": [],
-      "other": "Wears black clothing and often wears a mask in public"
-    }
+      "scars": [
+        "Scar on the forehead",
+        "Scar on the left arm"
+      ],
+      "other": "Constantly wearing sunglasses"
+    },
+    "imgUrl": "https://pbxt.replicate.delivery/XVwcRVfz3S2uPyr3d1EHgoiltyUZv3kxzwexsDsq3CVSbczRA/out-0.png"
   },
   {
-    "name": "Mademoiselle Louise Leclair",
-    "gender": "Female",
-    "age": 25,
-    "address": "rue de l'Ouest 34, Lyon",
+    "name": "Oliver Leclerc",
+    "gender": "Male",
+    "age": 29,
+    "address": "rue du Bois-de-L'Esperance 37, Paris",
     "sexualOrientation": "Asexual",
     "personality": [
-      "Quirky",
-      "Paranoid"
+      "OCD",
+      "Borderline Personality Disorder"
     ],
-    "work": "Artist",
+    "work": "Actor",
     "disorders": [
-      "Anxiety Disorder",
-      "Obsessive-Compulsive Disorder",
-      "Dissociative Identity Disorder",
-      "BPD"
+      "Epilepsy",
+      "Bipolar Disorder",
+      "Schizophrenia"
     ],
-    "disabilities": [
-      "Hearing Impairment",
-      "Seizures"
-    ],
+    "disabilities": [],
     "addictions": [
-      "Cocaine",
-      "Alcohol"
+      "Drug addiction"
     ],
     "hobbies": [
       "Painting",
-      "Drawing",
-      "Listening to metal music"
+      "Poetry",
+      "Music"
     ],
-    "additionalNotes": "Has a fear of clowns and spiders, is very sensitive to loud noises. She has multiple personalities and often forgets things she did or said. Has a tattoo of a skull on her arm.",
+    "additionalNotes": "He has a love-hate relationship with his fame. He believes that he is cursed and haunted by demons. Has multiple personalities.",
+    "physicalAppearance": {
+      "height": 1.85,
+      "weight": 72,
+      "hairColor": "Black",
+      "eyeColor": "Brown",
+      "skinColor": "White",
+      "facialHair": "None",
+      "bodyType": "Athletic",
+      "clothingStyle": "Gothic",
+      "tattoos": [
+        "Wings on the back",
+        "Roses on the forearms"
+      ],
+      "piercings": [
+        "Lips"
+      ],
+      "scars": [],
+      "other": "Dressing in black and white"
+    },
+    "imgUrl": "https://pbxt.replicate.delivery/8zk95DpUcB6GBRtD5CPwo1mU29MfjfFRJQHd25NdQ53lbczRA/out-0.png"
+  },
+  {
+    "name": "Alice Leclerc",
+    "gender": "Female",
+    "age": 27,
+    "address": "Rue de la Paix 56, Paris",
+    "sexualOrientation": "Bi",
+    "personality": [
+      "Paranoid",
+      "OCD",
+      "Manic"
+    ],
+    "work": "Sales Assistant",
+    "disorders": [
+      "Borderline Personality Disorder",
+      "Bipolar Disorder",
+      "Severe Depression",
+      "Anxiety"
+    ],
+    "disabilities": [],
+    "addictions": [
+      "Cocaine",
+      "Drugs"
+    ],
+    "hobbies": [
+      "Reading",
+      "Drawing"
+    ],
+    "additionalNotes": "Suffers from sleep paralysis and has vivid hallucinations. Struggles with anxiety attacks, has a fear of abandonment and is always looking for validation. She is very self-conscious and struggles with her body image.",
     "physicalAppearance": {
       "height": 1.65,
-      "weight": 62,
+      "weight": 70,
       "hairColor": "Black",
       "eyeColor": "Green",
       "skinColor": "White",
@@ -424,67 +128,13 @@
       "bodyType": "Slim",
       "clothingStyle": "Gothic",
       "tattoos": [
-        "Skull on left arm"
+        "Spider on right arm",
+        "Eyes on the forehead"
       ],
-      "piercings": [
-        "Nose",
-        "Ears",
-        "Lip"
-      ],
+      "piercings": [],
       "scars": [],
-      "other": "Has a collection of stuffed animals and dolls."
-    }
-  },
-  {
-    "name": "René La Vache",
-    "gender": "Male",
-    "age": 42,
-    "country": "Belgium",
-    "address": "rue des Saints-Étienne 23, Brussels",
-    "sexualOrientation": "Non-Binary",
-    "personality": [
-      "Oppositional",
-      "Isolated"
-    ],
-    "work": "Artist",
-    "disorders": [
-      "Obsessive-Compulsive Disorder (OCD)",
-      "Attention Deficit Hyperactivity Disorder (ADHD)",
-      "Generalized Anxiety Disorder (GAD)"
-    ],
-    "disabilities": [
-      "Asperger's Syndrome",
-      "Severe Autism"
-    ],
-    "addictions": [
-      "Substance abuse",
-      "Internet addiction"
-    ],
-    "hobbies": [
-      "Bonsai",
-      "Chess",
-      "Calligraphy"
-    ],
-    "additionalNotes": "Has a strong fixation on routine and ritual. He is very particular about his diet and often fasts for extended periods of time. Has a fascination with death and frequently engages in risky behavior. He is also an animal lover, but has a fear of large cats.",
-    "physicalAppearance": {
-      "height": 1.72,
-      "weight": 54,
-      "hairColor": "Black",
-      "eyeColor": "Brown",
-      "skinColor": "Fair",
-      "facialHair": "None",
-      "bodyType": "Petite",
-      "clothingStyle": "Gothic",
-      "tattoos": [
-        "Skull on left arm",
-        "Heart on the right forearm"
-      ],
-      "piercings": [
-        "Ears",
-        "Nose"
-      ],
-      "scars": [],
-      "other": "Wears black clothing and makeup, often wears sunglasses indoors."
-    }
+      "other": "Likes to wear a skull ring on her thumb"
+    },
+    "imgUrl": "https://pbxt.replicate.delivery/yrlFDDfG6Y1f2E8seeiw6pMbRGUGbeIBiT1zKzsbt0creG3cE/out-0.png"
   }
 ]

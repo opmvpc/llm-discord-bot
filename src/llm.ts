@@ -7,13 +7,14 @@ import {
 } from "langchain/schema";
 import { Message, Collection, Snowflake } from "discord.js";
 import { StringOutputParser } from "langchain/schema/output_parser";
-import prompts from "./prompts";
-import { Models } from "./models";
+import prompts from "./prompts.js";
+import { Models } from "./models.js";
+import { Persona } from "./Persona/Persona.js";
 
 class Llm {
   llm: ChatOllama;
-  persona: string;
-  personas: string[];
+  persona: Persona;
+  personas: Persona[];
 
   constructor() {
     console.log("Llm");
@@ -21,7 +22,7 @@ class Llm {
       baseUrl: "http://localhost:11434",
       model: Models.Mistral,
     });
-    this.persona = "";
+    this.persona = {} as Persona;
     this.personas = [];
   }
 
@@ -71,24 +72,12 @@ class Llm {
       .reverse();
   }
 
-  async generatePersonas(n: number = 5): Promise<void> {
-    for (let i = 0; i < n; i++) {
-      const persona = await this.stream([
-        new SystemMessage(prompts.persona.system),
-        new HumanMessage(prompts.persona.user),
-      ]);
-      this.personas.push(persona);
-    }
-
-    // random personality
+  async getRandomPersona(): Promise<void> {
     const index = Math.floor(Math.random() * this.personas.length);
     this.persona = this.personas[index];
   }
 
-  async chat(
-    messages: Collection<Snowflake, Message>,
-    botName: string
-  ): Promise<string> {
+  async chat(messages: Collection<Snowflake, Message>): Promise<string> {
     const history = await this.formatHistory(messages, "You");
     const datetimeString = new Date().toLocaleString("fr-FR", {
       timeZone: "Europe/Paris",
@@ -117,7 +106,7 @@ class Llm {
     // verify the answer with the user
     res = await this.verifyReply(res);
     res = await this.verifyReply(res);
-    // res = await this.translate(res, "fr");
+    res = await this.translate(res, "fr");
 
     return res;
   }

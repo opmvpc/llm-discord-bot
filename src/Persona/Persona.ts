@@ -1,4 +1,4 @@
-class Personna {
+class Persona {
   constructor(
     public name: string,
     public gender: string,
@@ -26,13 +26,18 @@ class Personna {
       piercings: string[];
       scars: string[];
       other: string;
-    }
+    },
+    public imgUrl?: string
   ) {}
+
+  public json(): string {
+    return JSON.stringify(this, null, 2);
+  }
 }
 
-export type { Personna };
+export type { Persona };
 
-export const from = (json: string): Personna => {
+export const from = (json: string): Persona => {
   // strip everything before the first {
   json = json.includes("{") ? json.substring(json.indexOf("{")) : json;
   // strip everything after the last }
@@ -42,7 +47,7 @@ export const from = (json: string): Personna => {
 
   const jsonPersonna = JSON.parse(json);
 
-  const personna: Personna = new Personna(
+  const personna: Persona = new Persona(
     jsonPersonna.name,
     jsonPersonna.gender,
     jsonPersonna.age,

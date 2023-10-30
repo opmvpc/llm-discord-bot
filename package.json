@@ -2,7 +2,7 @@
   "name": "llm-discord-bot",
   "version": "1.0.0",
   "description": "discord bot",
-  "type": "commonjs",
+  "type": "module",
   "main": "dist/index.js",
   "scripts": {
     "dev": "concurrently --retry-forever -n tsc,bot \"tsc -w\" \"node ./watcher.mjs ./dist/index.js\"",

@@ -1,13 +1,18 @@
 import { HumanMessage, SystemMessage } from "langchain/schema";
-import llm from "../llm";
+import llm from "../llm.js";
 import { createStorage } from "unstorage";
 import fsDriver from "unstorage/drivers/fs";
-import { prompt } from "./prompt";
-import { Personna, from } from "./Persona";
+import { prompt } from "./prompt.js";
+import { Persona, from } from "./Persona.js";
+import { sdxl } from "./Sdxl/sdxl.js";
+import "dotenv/config";
 
-const create = async (n: number = 5): Promise<void> => {
+export const create = async (
+  n: number = 5,
+  imageGeneration: boolean = false
+): Promise<void> => {
   console.log(`Génération de ${n} personas...`);
-  const personas = await generate(n);
+  const personas = await generate(n, imageGeneration);
   console.log(`Génération terminée.`);
 
   if (personas.length === 0) {
@@ -28,12 +33,15 @@ const create = async (n: number = 5): Promise<void> => {
   console.log("Personas enregistrés dans ./data/personas.json");
 };
 
-const generate = async (n: number = 5): Promise<Personna[]> => {
-  const personas: Personna[] = [];
+const generate = async (
+  n: number = 5,
+  imageGeneration: boolean = false
+): Promise<Persona[]> => {
+  const personas: Persona[] = [];
   for (let i = 0; i < n; i++) {
     let jsonIsValid = false;
     let jsonPersona: string;
-    let persona: Personna | undefined;
+    let persona: Persona | undefined;
     do {
       try {
         jsonPersona = await llm.stream([
@@ -51,9 +59,17 @@ const generate = async (n: number = 5): Promise<Personna[]> => {
     if (persona === undefined) {
       throw new Error("JSON is undefined");
     }
+
+    if (imageGeneration === true) {
+      console.log("Génération de l'image...");
+      const imgUrl = await sdxl(persona);
+      persona.imgUrl = imgUrl;
+      console.log("Image générée.");
+    }
+
     personas.push(persona);
   }
   return personas;
 };
 
-create(10);
+create(3, true);
