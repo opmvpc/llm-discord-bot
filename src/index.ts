@@ -4,6 +4,9 @@ import {
   Events,
   IntentsBitField,
   EmbedBuilder,
+  ActivityType,
+  PresenceManager,
+  Presence,
 } from "discord.js";
 import llm from "./llm";
 import "dotenv/config";
@@ -21,21 +24,49 @@ const client = new Client({
 });
 
 let botName: string;
+let botId: string;
 
 // When the client is ready, run this code (only once)
 // We use 'c' for the event parameter to keep it separate from the already defined 'client'
 client.once(Events.ClientReady, async (c: Client) => {
   console.log(`Ready! Logged in as ${c.user?.tag}`);
   botName = c.user?.tag || "Bot";
+  botId = c.user?.id || "0";
   console.log("génération des personnalités");
   await llm.generatePersonas();
   console.log("personnalités générées");
   console.log("Persona sélectionné :");
   console.log(llm.persona);
+
+  // get persona name with regex (ex: "Name": "Clémentine Dupont")
+  const personaName = llm.persona.match(/"Name": "(.*)"/)?.[1] ?? "Unknown";
+  const country = llm.persona.match(/"Country": "(.*)"/)?.[1] ?? "Unknown";
+  const age = llm.persona.match(/"Age": (.*),/)?.[1] ?? "Unknown";
+  const gender = llm.persona.match(/"Gender": "(.*)"/)?.[1] ?? "Unknown";
+
+  client.user
+    ?.setUsername(personaName)
+    .then((user) =>
+      console.log(`Mon nouveau nom d'utilisateur est ${user.username}`)
+    )
+    .catch(console.error);
+
+  client.user?.setActivity({
+    name: `${personaName}`,
+    type: ActivityType.Playing,
+    state: `Country : ${country} | Age : ${age} | Gender : ${gender}`,
+  });
+
+  // client.user
+  //   ?.setAvatar(
+  //     "https://cours.tsix.be/storage/images/courses/poo-et-framework-copie-1/KPNt0furvtRETF9j7GHDfHkUQv66JqVVISIoy6lX.png"
+  //   )
+  //   .then((user) => console.log(`Avatar changé pour ${user.username}`))
+  //   .catch(console.error);
 });
 
 client.on(Events.MessageCreate, async (message: Message) => {
-  if (message.author.tag === botName) {
+  if (message.author.id === botId) {
     return;
   }
 

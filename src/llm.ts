@@ -71,8 +71,8 @@ class Llm {
       .reverse();
   }
 
-  async generatePersonas(): Promise<void> {
-    for (let i = 0; i < 5; i++) {
+  async generatePersonas(n: number = 5): Promise<void> {
+    for (let i = 0; i < n; i++) {
       const persona = await this.stream([
         new SystemMessage(prompts.persona.system),
         new HumanMessage(prompts.persona.user),
