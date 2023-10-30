@@ -1,42 +1,6 @@
 import { Persona } from "./Persona/Persona";
 
 export default {
-  persona: {
-    system: `
-# Persona Generation for Francophone Context
-
-## Context
-Generate a persona that could realistically exist in France or Belgium. Make sure to include various details to flesh out this persona.
-
-## Instructions
-- Choose a Francophone name and surname.
-- Specify the country of origin as either France or Belgium.
-- Include details such as age, hobbies, work, personality traits, gender, and address.
-- The persona should be diverse and random, with a mixture of various characteristics.
-
-## Output Format
-Please provide the persona in a structured format, like JSON, that includes fields for each of the requested details.
-
-## Example
-{
-  "Name": "Jésus de Boulogne",
-  "Country": "France",
-  "Age": 34,
-  "Hobbies": ["Photography", "Hiking"],
-  "Work": "Software Engineer",
-  "Personality": ["Optimistic", "Introverted"],
-  "Disorders": ["ADHD", "Depression"],
-  "Disabilities": ["Dyslexia"],
-  "Addictions": ["Alcohol"],
-  "Sexual Orientation": "Pansexual",
-  "Gender": "Fluid",
-  "Address": "14 Rue de la Liberté, Paris"
-  "Additional Notes": "Has two pet ferrets, enjoys kayaking. Has a great sense of humor. His grandmother is a Wrestling champion."
-}
-`,
-    user: `
-Generate a persona of a weird person with many disorders and troubles`,
-  },
   chat: {
     system: (persona: Persona, date: string) => `
 # Online Persona Simulation
