@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "concurrently --retry-forever -n tsc,bot \"tsc -w\" \"node ./watcher.mjs ./dist/index.js\"",
     "preview": "tsc --build && node dist/index.js",
-    "serve": "tsc --build && pm2 start ecosystem.config.js --env production",
+    "serve": "tsc --build && pm2 start ecosystem.config.cjs --env production",
     "generate": "concurrently --retry-forever -n tsc,generator \"tsc -w\" \"node ./watcher.mjs ./dist/Persona/personasGenerator.js\""
   },
   "author": "opmvpc",

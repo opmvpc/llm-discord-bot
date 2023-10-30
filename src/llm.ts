@@ -20,7 +20,7 @@ class Llm {
     console.log("Llm");
     this.llm = new ChatOllama({
       baseUrl: "http://localhost:11434",
-      model: Models.Mistral,
+      model: Models.OpenHermes2Mistra,
     });
     this.persona = {} as Persona;
     this.personas = [];
@@ -92,9 +92,9 @@ class Llm {
     ]);
 
     // verify the answer with the user
-    res = await this.verifyReply(res);
-    res = await this.verifyReply(res);
-    res = await this.translate(res, "fr");
+    // res = await this.verifyReply(res);
+    // res = await this.verifyReply(res);
+    // res = await this.translate(res, "fr");
 
     return res;
   }
