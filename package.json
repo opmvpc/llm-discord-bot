@@ -1,0 +1,25 @@
+{
+  "name": "llm-discord-bot",
+  "version": "1.0.0",
+  "description": "discord bot",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "concurrently --retry-forever -n tsc,bot \"tsc -w\" \"node ./watcher.mjs\"",
+    "preview": "tsc --build && node dist/index.js",
+    "serve": "tsc --build && pm2 start ecosystem.config.js --env production"
+  },
+  "author": "opmvpc",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.13.0",
+    "dotenv": "^16.3.1",
+    "langchain": "^0.0.175"
+  },
+  "devDependencies": {
+    "chokidar": "^3.5.3",
+    "child_process": "^1.0.2",
+    "concurrently": "^8.2.2",
+    "typescript": "^5.2.2"
+  }
+}
