@@ -112,27 +112,29 @@ const switchPersona = async () => {
   const persona = llm.persona as Persona;
   console.log(`Persona sélectionné : ${persona.name}`);
 
-  try {
-    await client.user?.setUsername(persona.name);
-  } catch (error: any) {
-    console.log("Error setting username");
-    // console.error(error.message);
+  if (client.user?.username !== persona.name) {
+    try {
+      await client.user?.setUsername(persona.name);
+    } catch (error: any) {
+      console.log("Error setting username");
+    }
   }
 
   client.user?.setActivity({
     name: `${persona.name}`,
     type: ActivityType.Playing,
-    state: `Country : ${persona.country} | Age : ${persona.age} | Gender : ${persona.gender}`,
+    state: `Age : ${persona.age} | Gender : ${persona.gender} | Country : ${persona.country}`,
   });
 
-  try {
-    await client.user?.setAvatar(
-      persona.imgUrl ??
-        "https://cdn.discordapp.com/app-icons/1168230047870636173/febd01a5ad27aaaaa4fd1b715caf018c.png?size=256"
-    );
-  } catch (error: any) {
-    console.log("Error setting avatar");
-    // console.error(error.message);
+  if (client.user?.avatarURL() !== persona.imgUrl) {
+    try {
+      await client.user?.setAvatar(
+        persona.imgUrl ??
+          "https://cdn.discordapp.com/app-icons/1168230047870636173/febd01a5ad27aaaaa4fd1b715caf018c.png?size=256"
+      );
+    } catch (error: any) {
+      console.log("Error setting avatar");
+    }
   }
 };
 

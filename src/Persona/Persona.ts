@@ -45,23 +45,23 @@ export const from = (json: string): Persona => {
     ? json.substring(0, json.lastIndexOf("}") + 1)
     : json;
 
-  const jsonPersonna = JSON.parse(json);
+  const jsonPersona = JSON.parse(json);
 
   const personna: Persona = new Persona(
-    jsonPersonna.name,
-    jsonPersonna.gender,
-    jsonPersonna.age,
-    jsonPersonna.country,
-    jsonPersonna.address,
-    jsonPersonna.sexualOrientation,
-    jsonPersonna.personality,
-    jsonPersonna.work,
-    jsonPersonna.disorders,
-    jsonPersonna.disabilities,
-    jsonPersonna.addictions,
-    jsonPersonna.hobbies,
-    jsonPersonna.additionalNotes,
-    jsonPersonna.physicalAppearance
+    jsonPersona.name,
+    jsonPersona.gender,
+    jsonPersona.age,
+    jsonPersona.country,
+    jsonPersona.address,
+    jsonPersona.sexualOrientation,
+    jsonPersona.personality,
+    jsonPersona.work,
+    jsonPersona.disorders,
+    jsonPersona.disabilities,
+    jsonPersona.addictions,
+    jsonPersona.hobbies,
+    jsonPersona.additionalNotes,
+    jsonPersona.physicalAppearance
   );
 
   return personna;

@@ -67,9 +67,11 @@ const generate = async (
       console.log("Image générée.");
     }
 
+    console.log(`${i + 1}. ${persona.name} : ${persona.imgUrl ?? "No image"}`);
+
     personas.push(persona);
   }
   return personas;
 };
 
-create(3, true);
+create(10, true);
