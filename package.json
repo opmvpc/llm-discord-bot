@@ -8,7 +8,8 @@
     "dev": "concurrently --retry-forever -n tsc,bot \"tsc -w\" \"node ./watcher.mjs ./dist/index.js\"",
     "preview": "tsc --build && node dist/index.js",
     "serve": "tsc --build && pm2 start ecosystem.config.cjs --env production",
-    "generate": "concurrently --retry-forever -n tsc,generator \"tsc -w\" \"node ./watcher.mjs ./dist/Persona/personasGenerator.js\""
+    "generate": "concurrently --retry-forever -n tsc,generator \"tsc -w\" \"node ./watcher.mjs ./dist/Persona/personasGenerator.js\"",
+    "test": "vitest --watch --verbose"
   },
   "author": "opmvpc",
   "license": "MIT",
@@ -23,6 +24,7 @@
     "child_process": "^1.0.2",
     "chokidar": "^3.5.3",
     "concurrently": "^8.2.2",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.6"
   }
 }

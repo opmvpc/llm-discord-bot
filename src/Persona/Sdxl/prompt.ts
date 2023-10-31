@@ -114,7 +114,7 @@ Avatar of a person. average build, purple hair, lavender locks, cybernetic eyes,
 ## Persona
 
 \`\`\`json
-${persona}
+${persona.json()}
 \`\`\`
 
 `,

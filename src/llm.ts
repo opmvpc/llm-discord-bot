@@ -15,8 +15,10 @@ class Llm {
   llm: ChatOllama;
   persona: Persona;
   personas: Persona[];
+  botId: string;
 
   constructor() {
+    this.botId = "";
     console.log("Llm");
     this.llm = new ChatOllama({
       baseUrl: "http://localhost:11434",
@@ -54,18 +56,17 @@ class Llm {
   }
 
   async formatHistory(
-    messages: Collection<Snowflake, Message>,
-    botName: string
+    messages: Collection<Snowflake, Message>
   ): Promise<BaseMessage[]> {
     return messages
       .map((message) => {
-        if (message.author.tag === botName) {
+        if (message.author.id === this.botId) {
           const msg = new AIMessage(message.content);
-          msg.name = botName;
+          msg.name = this.persona.name;
           return msg;
         } else {
           const msg = new HumanMessage(message.content);
-          msg.name = message.author.tag;
+          msg.name = message.author.username;
           return msg;
         }
       })
@@ -80,7 +81,7 @@ class Llm {
   async chatWithPersona(
     messages: Collection<Snowflake, Message>
   ): Promise<string> {
-    const history = await this.formatHistory(messages, "You");
+    const history = await this.formatHistory(messages);
     const datetimeString = new Date().toLocaleString("fr-FR", {
       timeZone: "Europe/Paris",
     });
@@ -109,7 +110,8 @@ class Llm {
   async decideAction(
     messages: Collection<Snowflake, Message>
   ): Promise<"reply" | "none"> {
-    const history = await this.formatHistory(messages, "You");
+    const history = await this.formatHistory(messages);
+
     const datetimeString = new Date().toLocaleString("fr-FR", {
       timeZone: "Europe/Paris",
     });

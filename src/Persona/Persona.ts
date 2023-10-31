@@ -37,6 +37,25 @@ class Persona {
 
 export type { Persona };
 
+export const fromObject = (obj: any): Persona => {
+  return new Persona(
+    obj.name,
+    obj.gender,
+    obj.age,
+    obj.country,
+    obj.address,
+    obj.sexualOrientation,
+    obj.personality,
+    obj.work,
+    obj.disorders,
+    obj.disabilities,
+    obj.addictions,
+    obj.hobbies,
+    obj.additionalNotes,
+    obj.physicalAppearance
+  );
+};
+
 export const from = (json: string): Persona => {
   // strip everything before the first {
   json = json.includes("{") ? json.substring(json.indexOf("{")) : json;

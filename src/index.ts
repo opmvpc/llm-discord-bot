@@ -10,7 +10,7 @@ import llm from "./llm.js";
 import "dotenv/config";
 import { createStorage } from "unstorage";
 import fsDriver from "unstorage/drivers/fs";
-import { Persona } from "./Persona/Persona.js";
+import { Persona, fromObject } from "./Persona/Persona.js";
 
 const intents = new IntentsBitField();
 intents.add(
@@ -33,6 +33,7 @@ client.once(Events.ClientReady, async (c: Client) => {
   console.log(`Ready! Logged in as ${c.user?.tag}`);
   botName = c.user?.tag || "Bot";
   botId = c.user?.id || "0";
+  llm.botId = botId;
   await switchPersona();
 });
 
@@ -60,7 +61,7 @@ client.on(Events.MessageCreate, async (message: Message) => {
 
   try {
     // @ts-ignore - DiscordJS types are wrong
-    const messages = await message.channel.messages.fetch({ limit: 10 });
+    const messages = await message.channel.messages.fetch({ limit: 20 });
 
     // decideAction
     const action = await llm.decideAction(messages);
@@ -88,7 +89,9 @@ client.on(Events.MessageCreate, async (message: Message) => {
 const main = async () => {
   const storage = createStorage({ driver: fsDriver({ base: "./data" }) });
 
-  let json = (await storage.getItem("personas.json")) as Persona[];
+  let json = ((await storage.getItem("personas.json")) as any[]).map((p: any) =>
+    fromObject(p)
+  );
   if (json === null) {
     throw new Error("No personas found, use `npm run generate` first");
   }

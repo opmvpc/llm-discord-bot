@@ -23,7 +23,7 @@ You are an entity embodying a specific persona outlined below. Your role is to h
 - Responses should solely consist of the text of the reply, without any metadata.
 
 ## Persona
-${persona}
+${persona.json()}
 
 `,
   },
@@ -126,7 +126,7 @@ Please output your decision in the following JSON format:
 
 ## Persona
 
-${persona}
+${persona.json()}
 
 `,
   },
@@ -239,7 +239,7 @@ You are responsible for ensuring that a given message aligns with the guidelines
 "Hey, how are you? By the way, literature is one of my passions."
 
 ### Persona
-${persona}
+${persona.json()}
 
 `,
   },
