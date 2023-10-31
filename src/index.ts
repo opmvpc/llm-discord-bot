@@ -11,6 +11,8 @@ import "dotenv/config";
 import { createStorage } from "unstorage";
 import fsDriver from "unstorage/drivers/fs";
 import { Persona, fromObject } from "./Persona/Persona.js";
+import { decide } from "./DecideAction/decide.js";
+import { chatWithPersona } from "./Chat/chat.js";
 
 const intents = new IntentsBitField();
 intents.add(
@@ -64,7 +66,7 @@ client.on(Events.MessageCreate, async (message: Message) => {
     const messages = await message.channel.messages.fetch({ limit: 20 });
 
     // decideAction
-    const action = await llm.decideAction(messages);
+    const action = await decide(messages);
     if (action === "none") {
       return;
     }
@@ -73,7 +75,7 @@ client.on(Events.MessageCreate, async (message: Message) => {
     message.channel.sendTyping();
     console.log("génération de la réponse");
 
-    const reply = (await llm.chatWithPersona(messages)) ?? "No reply";
+    const reply = (await chatWithPersona(messages)) ?? "No reply";
     console.log(reply);
     message.reply(reply);
   } catch (error: any) {
