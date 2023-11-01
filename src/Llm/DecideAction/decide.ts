@@ -1,13 +1,10 @@
-import { Collection, Message, Snowflake } from "discord.js";
 import llm from "../llm.js";
 import { BaseMessage, HumanMessage, SystemMessage } from "langchain/schema";
 import { prompt } from "./prompt.js";
 
 export const decide = async (
-  messages: Collection<Snowflake, Message>
+  history: BaseMessage[]
 ): Promise<"reply" | "none"> => {
-  const history = await llm.formatHistory(messages);
-
   const datetimeString = new Date().toLocaleString("fr-FR", {
     timeZone: "Europe/Paris",
   });

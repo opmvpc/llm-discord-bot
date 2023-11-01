@@ -5,8 +5,8 @@ export const prompt = {
 # Define Chat Action Based on Last Received Message
 
 ## Global Information
-
 Date and time: ${date}
+your name : ${persona.name}
 
 ## Context
 

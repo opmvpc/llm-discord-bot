@@ -6,13 +6,13 @@ import {
   EmbedBuilder,
   ActivityType,
 } from "discord.js";
-import llm from "./llm.js";
+import llm from "./Llm/llm.js";
 import "dotenv/config";
 import { createStorage } from "unstorage";
 import fsDriver from "unstorage/drivers/fs";
-import { Persona, fromObject } from "./Persona/Persona.js";
-import { decide } from "./DecideAction/decide.js";
-import { chatWithPersona } from "./Chat/chat.js";
+import { Persona, fromObject } from "./Llm/Persona/Persona.js";
+import { decide } from "./Llm/DecideAction/decide.js";
+import { chatWithPersona } from "./Llm/Chat/chat.js";
 
 const intents = new IntentsBitField();
 intents.add(
@@ -64,9 +64,8 @@ client.on(Events.MessageCreate, async (message: Message) => {
   try {
     // @ts-ignore - DiscordJS types are wrong
     const messages = await message.channel.messages.fetch({ limit: 20 });
-
-    // decideAction
-    const action = await decide(messages);
+    const history = await llm.formatHistory(messages);
+    const action = await decide(history);
     if (action === "none") {
       return;
     }
@@ -75,7 +74,7 @@ client.on(Events.MessageCreate, async (message: Message) => {
     message.channel.sendTyping();
     console.log("génération de la réponse");
 
-    const reply = (await chatWithPersona(messages)) ?? "No reply";
+    const reply = (await chatWithPersona(history)) ?? "No reply";
     console.log(reply);
     message.reply(reply);
   } catch (error: any) {
@@ -89,16 +88,7 @@ client.on(Events.MessageCreate, async (message: Message) => {
 });
 
 const main = async () => {
-  const storage = createStorage({ driver: fsDriver({ base: "./data" }) });
-
-  let json = ((await storage.getItem("personas.json")) as any[]).map((p: any) =>
-    fromObject(p)
-  );
-  if (json === null) {
-    throw new Error("No personas found, use `npm run generate` first");
-  }
-
-  llm.personas = json;
+  await llm.loadPersonas();
 
   let token: string;
 

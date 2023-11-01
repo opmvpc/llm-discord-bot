@@ -1,12 +1,10 @@
-import { Collection, Message, Snowflake } from "discord.js";
 import llm from "../llm.js";
-import { HumanMessage, SystemMessage } from "langchain/schema";
+import { BaseMessage, HumanMessage, SystemMessage } from "langchain/schema";
 import prompts from "./prompts.js";
 
 export const chatWithPersona = async (
-  messages: Collection<Snowflake, Message>
+  history: BaseMessage[]
 ): Promise<string> => {
-  const history = await llm.formatHistory(messages);
   const datetimeString = new Date().toLocaleString("fr-FR", {
     timeZone: "Europe/Paris",
   });
