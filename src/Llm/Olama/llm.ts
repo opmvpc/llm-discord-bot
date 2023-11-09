@@ -6,8 +6,11 @@ import { Models } from "./models.js";
 import { Persona, fromObject } from "./Persona/Persona.js";
 import { createStorage } from "unstorage";
 import fsDriver from "unstorage/drivers/fs";
+import { decide } from "./DecideAction/decide.js";
+import { chatWithPersona } from "./Chat/chat.js";
+import { GlobalConfig } from "../../GlobalConfig.js";
 
-class Llm {
+export class OllamaLlm {
   llm: ChatOllama;
   persona: Persona;
   personas: Persona[];
@@ -78,7 +81,26 @@ class Llm {
   async getRandomPersona(): Promise<void> {
     const index = Math.floor(Math.random() * this.personas.length);
     this.persona = this.personas[index];
+
+    const storage = createStorage({ driver: fsDriver({ base: "./data" }) });
+
+    const config = (await storage.getItem("globalConfig.json")) as GlobalConfig;
+    config.lastPersona = index;
+
+    await storage.setItem("globalConfig.json", JSON.stringify(config, null, 2));
+  }
+
+  async getPersona(lastPersonna: number): Promise<void> {
+    this.persona = this.personas[lastPersonna];
+  }
+
+  async decide(history: BaseMessage[]): Promise<"none" | "reply"> {
+    return await decide(history);
+  }
+
+  async chatWithPersona(history: BaseMessage[]): Promise<string> {
+    return await chatWithPersona(history);
   }
 }
 
-export default new Llm();
+export default new OllamaLlm();

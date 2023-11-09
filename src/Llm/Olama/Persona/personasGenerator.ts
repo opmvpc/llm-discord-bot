@@ -63,11 +63,17 @@ const generate = async (
     if (imageGeneration === true) {
       console.log("Génération de l'image...");
       const imgUrl = await sdxl(persona);
-      persona.imgUrl = imgUrl;
+      persona.img = {
+        url: imgUrl,
+        path: "",
+        base64: "",
+      };
       console.log("Image générée.");
     }
 
-    console.log(`${i + 1}. ${persona.name} : ${persona.imgUrl ?? "No image"}`);
+    console.log(
+      `${i + 1}. ${persona.name} : ${persona.img?.url ?? "No image"}`
+    );
 
     personas.push(persona);
   }

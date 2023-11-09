@@ -6,13 +6,17 @@ import {
   EmbedBuilder,
   ActivityType,
 } from "discord.js";
-import llm from "./Llm/llm.js";
+
+import fs from "fs/promises";
+
 import "dotenv/config";
 import { createStorage } from "unstorage";
 import fsDriver from "unstorage/drivers/fs";
-import { Persona, fromObject } from "./Llm/Persona/Persona.js";
-import { decide } from "./Llm/DecideAction/decide.js";
-import { chatWithPersona } from "./Llm/Chat/chat.js";
+
+import { OllamaLlm } from "./Llm/Olama/llm.js";
+import { GptLlm } from "./Llm/Gpt/llm.js";
+import { GlobalConfig } from "./GlobalConfig.js";
+import { Persona } from "./Llm/Olama/Persona/Persona.js";
 
 const intents = new IntentsBitField();
 intents.add(
@@ -36,7 +40,7 @@ client.once(Events.ClientReady, async (c: Client) => {
   botName = c.user?.tag || "Bot";
   botId = c.user?.id || "0";
   llm.botId = botId;
-  await switchPersona();
+  await switchPersona(config.lastPersona);
 });
 
 client.on(Events.MessageCreate, async (message: Message) => {
@@ -63,9 +67,10 @@ client.on(Events.MessageCreate, async (message: Message) => {
 
   try {
     // @ts-ignore - DiscordJS types are wrong
-    const messages = await message.channel.messages.fetch({ limit: 20 });
+    const messages = await message.channel.messages.fetch({ limit: 10 });
     const history = await llm.formatHistory(messages);
-    const action = await decide(history);
+    // @ts-ignore
+    const action = await llm.decide(history);
     if (action === "none") {
       return;
     }
@@ -74,7 +79,8 @@ client.on(Events.MessageCreate, async (message: Message) => {
     message.channel.sendTyping();
     console.log("génération de la réponse");
 
-    const reply = (await chatWithPersona(history)) ?? "No reply";
+    // @ts-ignore
+    const reply = (await llm.chatWithPersona(history)) ?? "No reply";
     console.log(reply);
     message.reply(reply);
   } catch (error: any) {
@@ -101,9 +107,16 @@ const main = async () => {
   client.login(token);
 };
 
-const switchPersona = async () => {
-  console.log("Changement de personnalité");
-  await llm.getRandomPersona();
+const switchPersona = async (lastPersonaId: number | null = null) => {
+  console.log(lastPersonaId);
+
+  if (lastPersonaId !== null) {
+    console.log("Chargement de la dernière personnalité");
+    await llm.getPersona(lastPersonaId);
+  } else {
+    console.log("Changement de personnalité");
+    await llm.getRandomPersona();
+  }
   const persona = llm.persona as Persona;
   console.log(`Persona sélectionné : ${persona.name}`);
 
@@ -121,42 +134,58 @@ const switchPersona = async () => {
     state: `Age : ${persona.age} | Gender : ${persona.gender} | Country : ${persona.country}`,
   });
 
-  if (client.user?.avatarURL() !== persona.imgUrl) {
-    try {
-      await client.user?.setAvatar(
-        persona.imgUrl ??
-          "https://cdn.discordapp.com/app-icons/1168230047870636173/febd01a5ad27aaaaa4fd1b715caf018c.png?size=256"
-      );
-    } catch (error: any) {
-      console.log("Error setting avatar");
-    }
+  // todo check comment distinguer les images
+  // if (client.user?.avatarURL() !== persona.img) {
+  try {
+    await client.user?.setAvatar(
+      (await persona.getBase64Avatar()) ??
+        "https://cdn.discordapp.com/app-icons/1168230047870636173/febd01a5ad27aaaaa4fd1b715caf018c.png?size=256"
+    );
+  } catch (error: any) {
+    console.log("Error setting avatar");
   }
+  // }
 };
 
 const sendPersonaEmbed = async (message: Message) => {
+  const imgBuffer = await fs.readFile(llm.persona?.img?.path ?? "");
+
   const embed = new EmbedBuilder()
     .setColor("#0099ff")
     .setTitle("Bot connecté")
     .setDescription(`Je suis prêt ! Connecté en tant que ${botName}`)
-    .addFields(
-      { name: "Model", value: llm.llm.model },
-      {
-        name: "Personnalité",
-        value: `
+    .addFields({
+      name: "Personnalité",
+      value: `
         Nom : ${llm.persona.name}
         Age : ${llm.persona.age}
         Genre : ${llm.persona.gender}
         Pays : ${llm.persona.country}
         `,
-      }
-    )
+    })
     .setColor("#0099ff")
-    .setImage(
-      llm.persona.imgUrl ??
-        "https://cdn.discordapp.com/app-icons/1168230047870636173/febd01a5ad27aaaaa4fd1b715caf018c.png?size=256"
-    );
+    .setImage("attachment://avatar.png");
 
-  message.channel.send({ embeds: [embed] });
+  message.channel.send({
+    embeds: [embed],
+    files: [{ attachment: imgBuffer, name: "avatar.png" }],
+  });
 };
+
+const storage = createStorage({ driver: fsDriver({ base: "./data" }) });
+const config: GlobalConfig = (await storage.getItem(
+  "globalConfig.json"
+)) as GlobalConfig;
+
+let llm: OllamaLlm | GptLlm;
+
+const llmType = config.llm ?? "gpt";
+if (llmType === "gpt") {
+  const { default: gptllm } = await import("./Llm/Gpt/llm.js");
+  llm = gptllm;
+} else {
+  const { default: ollamallm } = await import("./Llm/Olama/llm.js");
+  llm = ollamallm;
+}
 
 await main();

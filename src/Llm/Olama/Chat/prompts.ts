@@ -1,4 +1,4 @@
-import { Persona } from "../Persona/Persona.js";
+import { Persona } from "../../Persona/Persona.js";
 
 export default {
   chat: {

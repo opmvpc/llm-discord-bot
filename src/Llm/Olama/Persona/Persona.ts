@@ -1,3 +1,5 @@
+import { promises as fs } from "fs";
+
 class Persona {
   constructor(
     public name: string,
@@ -27,11 +29,15 @@ class Persona {
       scars: string[];
       other: string;
     },
-    public imgUrl?: string
+    public img?: { url: string; path: string; base64: string }
   ) {}
 
   public json(): string {
     return JSON.stringify(this, null, 2);
+  }
+
+  public async getBase64Avatar(): Promise<string> {
+    return await fs.readFile(this.img?.path ?? "", "base64");
   }
 }
 
