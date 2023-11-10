@@ -70,8 +70,9 @@ client.on(Events.MessageCreate, async (message: Message) => {
     const messages = await message.channel.messages.fetch({ limit: 10 });
     const history = await llm.formatHistory(messages);
     // @ts-ignore
-    const action = await llm.decide(history);
-    if (action === "none") {
+    const decision = await llm.decide(history);
+    message.reply(`**${decision.reason}**`);
+    if (decision.action === "none") {
       return;
     }
 

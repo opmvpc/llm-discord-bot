@@ -6,7 +6,7 @@ import { Models } from "./models.js";
 import { Persona, fromObject } from "./Persona/Persona.js";
 import { createStorage } from "unstorage";
 import fsDriver from "unstorage/drivers/fs";
-import { decide } from "./DecideAction/decide.js";
+import { Decision, decide } from "./DecideAction/decide.js";
 import { chatWithPersona } from "./Chat/chat.js";
 import { GlobalConfig } from "../../GlobalConfig.js";
 
@@ -94,7 +94,7 @@ export class OllamaLlm {
     this.persona = this.personas[lastPersonna];
   }
 
-  async decide(history: BaseMessage[]): Promise<"none" | "reply"> {
+  async decide(history: BaseMessage[]): Promise<Decision> {
     return await decide(history);
   }
 

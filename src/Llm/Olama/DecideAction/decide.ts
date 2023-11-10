@@ -2,9 +2,7 @@ import llm from "../llm.js";
 import { BaseMessage, HumanMessage, SystemMessage } from "langchain/schema";
 import { prompt } from "./prompt.js";
 
-export const decide = async (
-  history: BaseMessage[]
-): Promise<"reply" | "none"> => {
+export const decide = async (history: BaseMessage[]): Promise<Decision> => {
   const datetimeString = new Date().toLocaleString("fr-FR", {
     timeZone: "Europe/Paris",
   });
@@ -15,7 +13,7 @@ export const decide = async (
   do {
     if (retry > maxRetry) {
       console.log("Too many retries");
-      return "none";
+      return { action: "none", reason: "Too many retries" };
     }
     if (retry > 0) {
       console.log(`retrying... (${retry}/${maxRetry})`);
@@ -28,10 +26,11 @@ export const decide = async (
     if (matches && matches.length > 1) {
       if (matches[1] === "reply") {
         console.log("action : reply");
-        return "reply";
+        matches = res.match(/"reason": "(.*)"/);
+        return { action: "reply", reason: matches ? matches[1] : "none" };
       }
       console.log("action : none");
-      return "none";
+      return { action: "none", reason: "none" };
     }
 
     retry++;
@@ -49,3 +48,8 @@ const callDecide = (
     ...history,
     new HumanMessage("Decide your next action. Reply in json format."),
   ]);
+
+export interface Decision {
+  reason: string;
+  action: "reply" | "none";
+}

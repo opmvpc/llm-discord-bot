@@ -6,7 +6,7 @@ import fsDriver from "unstorage/drivers/fs";
 import OpenAI from "openai";
 import { AIMessage, BaseMessage, HumanMessage } from "./Messages.js";
 import "dotenv/config";
-import { decide } from "./DecideAction/decide.js";
+import { Decision, decide } from "./DecideAction/decide.js";
 import { chatWithPersona } from "./Chat/chat.js";
 import { GlobalConfig } from "../../GlobalConfig.js";
 
@@ -113,7 +113,7 @@ export class GptLlm {
     this.persona = this.personas[lastPersonna];
   }
 
-  async decide(history: BaseMessage[]): Promise<"none" | "reply"> {
+  async decide(history: BaseMessage[]): Promise<Decision> {
     return await decide(history);
   }
 
